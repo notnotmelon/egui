@@ -1299,6 +1299,11 @@ fn key_from_key_code(key: winit::keyboard::KeyCode) -> Option<egui::Key> {
     use winit::keyboard::KeyCode;
 
     Some(match key {
+        KeyCode::ControlLeft | KeyCode::ControlRight => Key::Ctrl,
+        KeyCode::ShiftLeft | KeyCode::ShiftRight => Key::Shift,
+        KeyCode::AltLeft | KeyCode::AltRight => Key::Alt,
+        KeyCode::CapsLock => Key::CapsLock,
+
         KeyCode::ArrowDown => Key::ArrowDown,
         KeyCode::ArrowLeft => Key::ArrowLeft,
         KeyCode::ArrowRight => Key::ArrowRight,

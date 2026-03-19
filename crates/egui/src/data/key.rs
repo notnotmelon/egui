@@ -6,6 +6,13 @@
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 pub enum Key {
     // ----------------------------------------------
+    // Modifiers:
+    Ctrl,
+    Alt,
+    Shift,
+    CapsLock,
+
+    // ----------------------------------------------
     // Commands:
     ArrowDown,
     ArrowLeft,
@@ -200,6 +207,11 @@ pub enum Key {
 impl Key {
     /// All egui keys
     pub const ALL: &'static [Self] = &[
+        // Modifiers:
+        Self::Ctrl,
+        Self::Alt,
+        Self::Shift,
+        Self::CapsLock,
         // Commands:
         Self::ArrowDown,
         Self::ArrowLeft,
@@ -327,6 +339,11 @@ impl Key {
     /// and by winit. Please test on both with `eframe`.
     pub fn from_name(key: &str) -> Option<Self> {
         Some(match key {
+            "Cmd" | "MacCmd" | "Ctrl" | "RCtrl" | "LCtrl" => Self::Ctrl,
+            "Alt" | "RAlt" | "LAlt" => Self::Alt,
+            "Shift" | "RShift" | "LShift" => Self::Shift,
+            "CapsLock" | "Caps" => Self::CapsLock,
+
             "⏷" | "ArrowDown" | "Down" => Self::ArrowDown,
             "⏴" | "ArrowLeft" | "Left" => Self::ArrowLeft,
             "⏵" | "ArrowRight" | "Right" => Self::ArrowRight,
@@ -454,6 +471,11 @@ impl Key {
         // Before we do we must first make sure they are supported in `Fonts` though,
         // so perhaps this functions needs to take a `supports_character: impl Fn(char) -> bool` or something.
         match self {
+            Self::Ctrl => "⌃",
+            Self::Alt => "⌥",
+            Self::Shift => "⇧",
+            Self::CapsLock => "⇪",
+
             Self::ArrowDown => "⏷",
             Self::ArrowLeft => "⏴",
             Self::ArrowRight => "⏵",
@@ -484,6 +506,11 @@ impl Key {
     /// Human-readable English name.
     pub fn name(self) -> &'static str {
         match self {
+            Self::Ctrl => "Ctrl",
+            Self::Alt => "Alt",
+            Self::Shift => "Shift",
+            Self::CapsLock => "CapsLock",
+
             Self::ArrowDown => "Down",
             Self::ArrowLeft => "Left",
             Self::ArrowRight => "Right",
